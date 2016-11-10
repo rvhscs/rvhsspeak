@@ -2,19 +2,19 @@
 <html>
   <head>
     <title>RVHS Speak - Home</title>
-    <!-- latest bootstrap minified css from their cdn -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Bootswatch theme; MIT License -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/latest/darkly/bootstrap.min.css">
-    <link rel="stylesheet" href="css/global.css">
-    <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/49b5632243.js"></script>
+    <?php
+      /*
+        So we only change one file instead of all files including it.
+        Helps with consistency
+      */
+      $incdoc = file_get_contents("inc/incdoc.php");
+      $header = file_get_contents("inc/header.php");
+      $footer = file_get_contents("inc/footer.php");
+      echo $incdoc;
+    ?>
   </head>
   <body>
     <?php
-      // This is so that if we want to change the header, we only have to change one file instead of every file that containts the header. (or other)
-      $header = file_get_contents("inc/header.php");
-      $footer = file_get_contents("inc/footer.php");
       echo $header;
     ?>
     <div class="container-fluid">
@@ -61,6 +61,10 @@
                     "2 Minutes",
                     "Help me with my new forum software",
                     "Ethan"
+                  ),
+                  array(
+                    "Bugs",
+                    0
                   )
                 )
               )
@@ -89,23 +93,27 @@
                       <div class="panel panel-default">
                         <div class="panel-body">
                           <div class="row">
-                            <div id="forumtitle" class="col-md-7">
+                            <div id="forumtitle" class="col-md-7 ft">
                               <span id="vtext">
-                                <i class="fa fa-comment" aria-hidden="true"></i> &nbsp;
+                                <i id="icon" class="fa fa-comment" aria-hidden="true"></i> &nbsp;
                                 <a href="#"><?php echo $forumsdat[0]; ?></a>
                               </span>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 ft">
                               <span id="vtext">
                                 <?php echo (string)$forumsdat[1] . ' Posts'; ?>
                               </span>
                             </div>
                             <div class="col-md-3">
-                              <div>
+                              <div class="ft">
                                 <span id="vtext">
-                                  <a href="#"><?php echo $forumsdat[3] ?></a><br/>
-                                  By <a href="#"><?php echo $forumsdat[4]; ?></a><br/>
-                                  <?php echo $forumsdat[2] . ' Ago'; ?>
+                                  <?php if (! isset($forumsdat[2]) || ! isset($forumsdat[3]) || ! isset($forumsdat[4])) { ?>
+                                    Never
+                                  <?php } else { ?>
+                                    <a href="#"><?php echo $forumsdat[3] ?></a><br/>
+                                    By <a href="#"><?php echo $forumsdat[4]; ?></a><br/>
+                                    <?php echo $forumsdat[2] . ' Ago'; ?>
+                                  <?php } ?>
                                 </span>
                               </div>
                             </div>
@@ -143,11 +151,8 @@
         </div>
       </div>
     </div>
-
     <?php
       echo $footer;
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>
